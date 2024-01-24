@@ -15,6 +15,7 @@
             <td th:text="${product.name}">Mark</td>
             <td th:text="${{product.price}}">Otto</td>
             <td th:text="${product.description}">@mdo</td>
+            <td><img th:src="@{/products/images/{filename}(filename=${product.photoFile})}" height="100px" width="100px"> </td>
         </tr>
         </tbody>
     </table>
@@ -22,7 +23,7 @@
 
 
 <div class="col-5 mx-auto">
-    <form th:object="${product}" method="post">
+    <form th:object="${product}" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" th:field="*{name}" aria-describedby="nameHelp">
@@ -34,6 +35,10 @@
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <input type="text" class="form-control" id="description" th:field="*{description}" aria-describedby="descriptionHelp">
+        </div>
+        <div class="mb-3">
+            <label for="photoFile" class="form-label">Photo file</label>
+            <input class="form-control" type="file" id="photoFile" th:field="*{photoFile}" aria-describedby="photoFileHelp">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
