@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +18,6 @@ public class Product {
     @GeneratedValue
     private Long id;
     private String name;
-    private Long price;
+    private BigDecimal price;
     private String description;
 }

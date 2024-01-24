@@ -18,14 +18,14 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
-    @ModelAttribute("users")
-    public Iterable<User> getUsers() {
-        return userRepository.findAll();
-    }
-
     @GetMapping
     public String showUsersPage() {
         return "users";
+    }
+
+    @ModelAttribute("users")
+    public Iterable<User> getUsers() {
+        return userRepository.findAll();
     }
 
     @ModelAttribute
