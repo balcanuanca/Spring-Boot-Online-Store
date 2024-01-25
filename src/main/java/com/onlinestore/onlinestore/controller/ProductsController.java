@@ -3,7 +3,6 @@ package com.onlinestore.onlinestore.controller;
 import com.onlinestore.onlinestore.data.FileStorageRepository;
 import com.onlinestore.onlinestore.data.ProductRepository;
 import com.onlinestore.onlinestore.model.Product;
-import com.onlinestore.onlinestore.model.User;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
