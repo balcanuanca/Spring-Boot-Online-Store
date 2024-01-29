@@ -7,10 +7,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 import static java.lang.String.format;
 
@@ -58,4 +61,20 @@ public class ProductsController {
                 .body(fileStorageRepository.findByName(resource));
     }
 
+    @PostMapping(params = "delete=true")
+    public String deleteProducts(@RequestParam Optional<List<Long>> selections){
+        if (selections.isPresent()) {
+            productRepository.deleteAllById(selections.get());
+        }
+        return "redirect:products";
+    }
+
+    @PostMapping(params = "edit=true")
+    public String editProducts(@RequestParam Optional<List<Long>> selections, Model model){
+        if (selections.isPresent()) {
+            Optional<Product> product = productRepository.findById(selections.get().get(0));
+            model.addAttribute("product", product);
+        }
+        return "products";
+    }
 }
