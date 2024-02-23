@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Set;
 
 @Repository
 public class FileStorageRepository {
@@ -19,6 +20,9 @@ public class FileStorageRepository {
     public void save(String originalFilename, InputStream inputStream) {
         try {
             Path filePath = Path.of(storageFolder).resolve(originalFilename).normalize();
+            if(Files.exists(filePath)){
+                Files.delete(filePath);
+            }
             Files.copy(inputStream,filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -32,5 +36,27 @@ public class FileStorageRepository {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void deleteAllByName(Iterable<String> fileNames) {
+        try {
+            for (String filename : fileNames) {
+                Path filePath = Path.of(storageFolder).resolve(filename).normalize();
+                Files.deleteIfExists(filePath);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void deleteByName(String filename) {
+        try {
+                Path filePath = Path.of(storageFolder).resolve(filename).normalize();
+                Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
